@@ -1,7 +1,7 @@
-customer_data = []
+customers = []
 
-def select_option_input(field_name: str, options: list) -> str:
-    print(f'Select {field_name} by entering the corresponding number:')
+def select_option_input(input_question: str, options: list) -> str:
+    print(input_question)
     for i in range(1, len(options) + 1):
         print(f'[{i}] {options[i-1]}')
     
@@ -38,7 +38,7 @@ def text_input(field_name:str, field_type: type):
         else:
             print('Incorrect input, try again')
 
-def get_data_from_input():
+def save_data_from_input():
     input_fields = {
         'name': {
             'type': str
@@ -55,13 +55,29 @@ def get_data_from_input():
         }
     }
     
-    for field_name in input_fields:
-        field_data = input_fields[field_name]
-        field_name_sanitized = field_name.replace('_', ' ')
+    done_adding_customers = False
+    
+    while not done_adding_customers:
+        customer_data = {}
+    
+        for field_name in input_fields:
+            field_data = input_fields[field_name]
+            field_name_sanitized = field_name.replace('_', ' ')
+            
+            if 'options' in field_data:
+                input_data = select_option_input(f'Select {field_name} by entering the corresponding number:', field_data['options'])
+            else:
+                input_data = text_input(field_name_sanitized, field_data['type'])
+                
+            customer_data[field_name] = input_data
+            
+        customers.append(customer_data)
+            
+        add_another_customer = select_option_input('Do you want to add another customer?', ['Yes', 'No'])
         
-        if 'options' in field_data:
-            select_option_input(field_name_sanitized, field_data['options'])
+        if add_another_customer == 'Yes':
+            continue
         else:
-            text_input(field_name_sanitized, field_data['type'])
-        
-get_data_from_input()
+            return
+     
+save_data_from_input()
