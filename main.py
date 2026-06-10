@@ -19,7 +19,7 @@ def select_option_input(input_question: str, options: list) -> str:
             return options[user_selection_number - 1]
         else:
             print(f"Incorrect input, enter a number between 1 and {len(options)}.")
-            
+
 def text_input(field_name:str, field_type: type):
     print(f'Enter your {field_name}')
     
@@ -96,12 +96,14 @@ def generate_advice(customer):
     return advice
 
 
-# print(
-#     generate_advice({
-#     'age': 60,
-#     'monthly_expenses': 40,
-#     'customer_type': 'ba'
-# }) 
-# )
+def print_summary():
+    save_data_from_input()
     
-# save_data_from_input()
+    i = 0
+    
+    while i < len(customers):
+        advice = generate_advice(customers[i])
+        print(f'\n{customers[i]['name']}:\n{advice}\n')
+        i +=1
+
+print_summary()
