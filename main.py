@@ -46,7 +46,7 @@ def save_data_from_input():
         'age': {
             'type': int
         },
-        'expenses': {
+        'monthly_expenses': {
             'type': int
         },
         'customer_type': {
@@ -79,5 +79,29 @@ def save_data_from_input():
             continue
         else:
             return
-     
-save_data_from_input()
+    
+def generate_advice(customer):
+    
+    advice = "Standaard dienstverlening"
+    
+    if customer['age'] >= 67:
+        advice = 'AOW-check en extra begeleiding'
+    
+    if customer['monthly_expenses'] > 100:
+        advice = 'Check aanvullende regelingen / samenloop'
+    
+    if customer['customer_type'] == 'premium':
+        advice = 'Intensievere begeleiding (complex dossier)'
+    
+    return advice
+
+
+# print(
+#     generate_advice({
+#     'age': 60,
+#     'monthly_expenses': 40,
+#     'customer_type': 'ba'
+# }) 
+# )
+    
+# save_data_from_input()
